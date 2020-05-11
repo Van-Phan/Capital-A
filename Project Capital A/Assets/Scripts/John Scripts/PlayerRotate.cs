@@ -14,6 +14,10 @@ public class PlayerRotate : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-
+        //rotates the player when left arrow key is clicked
+        if (Input.GetKeyDown(KeyCode.LeftArrow))
+        {
+            player.transform.Rotate(new Vector3(30,0,0));
+        }
     }
 }
