@@ -7,6 +7,7 @@ public class PlayerMove : MonoBehaviour
     //Field
     public Rigidbody rb;
     private float xVel, yVel, zVel;
+    private bool isNotJumping;
 
     // Start is called before the first frame update
     void Start()
@@ -14,6 +15,7 @@ public class PlayerMove : MonoBehaviour
         xVel = rb.velocity.x;
         yVel = rb.velocity.y;
         zVel = rb.velocity.z;
+        isNotJumping = true;
     }
 
     // Update is called once per frame
@@ -27,21 +29,27 @@ public class PlayerMove : MonoBehaviour
         yVel = rb.velocity.y;
         if (Input.GetKey(KeyCode.W))
         {
-            zVel = 1;
+            zVel = 3;
         }
         else if (Input.GetKey(KeyCode.S))
         {
-            zVel = -1;
+            zVel = -3;
         }
 
         if (Input.GetKey(KeyCode.A))
         {
-            xVel = -1;
+            xVel = -3;
         }
         else if (Input.GetKey(KeyCode.D))
         {
-            xVel = 1;
+            xVel = 3;
         }
+
+		if (Input.GetKeyDown(KeyCode.Space) && isNotJumping)
+		{
+            yVel = 10;
+            isNotJumping = false;
+		}
 
         if (Input.GetKeyUp(KeyCode.W) || Input.GetKeyUp(KeyCode.S))
         {
