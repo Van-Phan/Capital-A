@@ -35,9 +35,11 @@ public class PlayerControllerMovement : MonoBehaviour
                 verticalVelocity = jumpForce;
             }
         }
-        else //if the player is not grounded then they are falling
-        //so we mimic downwards acceleration 
+        else 
+        //if the player is not grounded then they are falling
+        //so we mimic downwards acceleration by decrementing it
         {
+            //determines the speed our character falls
             verticalVelocity -= gravity * Time.deltaTime;
         }
         //moves the player in the vertical direction
@@ -58,8 +60,12 @@ public class PlayerControllerMovement : MonoBehaviour
         cameraForward.y = 0;
         cameraRight.y = 0;
 
-        //moves the player 
+        //calculates the vector 3 for movement with respect to camera direction
+        //and vertical vector for gravity
         Vector3 movement = (cameraForward * input.y + cameraRight * input.x + verticalVector);
+
+        //takes the movement vector we calculate and moves the player
+        //I multiply the value by a numeric value at the end to increase how fast the player is moving
         player.Move(movement * Time.deltaTime * 5);
     }
 }
