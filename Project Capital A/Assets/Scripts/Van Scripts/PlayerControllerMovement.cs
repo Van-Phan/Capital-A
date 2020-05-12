@@ -8,10 +8,16 @@ public class PlayerControllerMovement : MonoBehaviour
     public Transform camera;
     public CharacterController player;
 
+    private float verticalVelocity;
+    private float gravity = 9.81f;
+    private float jumpForce = 6.0f;
+
+
     Vector2 input;
     // Start is called before the first frame update
     void Start()
     {
+        player = GetComponent<CharacterController>();
         //locks and hides cursor to middle of screen, press escape to enable mouse
         Cursor.lockState = CursorLockMode.Locked;
     }
@@ -19,6 +25,26 @@ public class PlayerControllerMovement : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        //if the player is on the ground apply a downwards velocity
+        if (player.isGrounded)
+        {
+            verticalVelocity = -gravity * Time.deltaTime;
+            //if the player presses space while they are grounded they jump
+            if (Input.GetKeyDown(KeyCode.Space))
+            {
+                verticalVelocity = jumpForce;
+            }
+        }
+        else //if the player is not grounded then they are falling
+        //so we mimic downwards acceleration 
+        {
+            verticalVelocity -= gravity * Time.deltaTime;
+        }
+        //moves the player in the vertical direction
+        Vector3 verticalVector = new Vector3(0, verticalVelocity, 0);
+        verticalVector = verticalVector.normalized;
+        //player.Move(moveVector * Time.deltaTime);
+
         //determines which way the user wants to go based off WASD input
         input = new Vector2(Input.GetAxisRaw("Horizontal"), Input.GetAxisRaw("Vertical"));
         //normalizes our vector so if moving diagonally we don't move faster
@@ -33,6 +59,7 @@ public class PlayerControllerMovement : MonoBehaviour
         cameraRight.y = 0;
 
         //moves the player 
-        player.Move((cameraForward * input.y + cameraRight * input.x) * Time.deltaTime * 5);
+        Vector3 movement = (cameraForward * input.y + cameraRight * input.x + verticalVector);
+        player.Move(movement * Time.deltaTime * 5);
     }
 }
