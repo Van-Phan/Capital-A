@@ -10,13 +10,24 @@ public class PlayerControllerMovement : MonoBehaviour
 
     private float verticalVelocity;
     private float gravity = 9.81f;
-    private float jumpForce = 6.0f;
+    private float jumpForce = 10.0f;
+
+    public float walkSpeed = 2;
+    public float runSpeed = 6;
+
+    public float speedSmoothTime = 0.1f;
+    float speedSmoothVelocity;
+    float currentSpeed;
+
+    public float turnSmoothTime = 0.2f;
+    float turnSmoothVelocity;
 
 
     Vector2 input;
     // Start is called before the first frame update
     void Start()
     {
+        camera = Camera.main.transform;
         player = GetComponent<CharacterController>();
         //locks and hides cursor to middle of screen, press escape to enable mouse
         Cursor.lockState = CursorLockMode.Locked;
@@ -40,32 +51,41 @@ public class PlayerControllerMovement : MonoBehaviour
         //so we mimic downwards acceleration by decrementing it
         {
             //determines the speed our character falls
-            verticalVelocity -= gravity * Time.deltaTime;
+            verticalVelocity -= (gravity + 2) * Time.deltaTime;
         }
         //moves the player in the vertical direction
         Vector3 verticalVector = new Vector3(0, verticalVelocity, 0);
-        verticalVector = verticalVector.normalized;
-        //player.Move(moveVector * Time.deltaTime);
 
         //determines which way the user wants to go based off WASD input
         input = new Vector2(Input.GetAxisRaw("Horizontal"), Input.GetAxisRaw("Vertical"));
         //normalizes our vector so if moving diagonally we don't move faster
         input = input.normalized;
 
-        //retrieves the vectors of our camera
-        Vector3 cameraForward = camera.forward;
-        Vector3 cameraRight = camera.right;
+        //sets up rotation of object
+        if(input != Vector2.zero)
+        {
+            float targetRotation = Mathf.Atan2(input.x, input.y) * Mathf.Rad2Deg + camera.eulerAngles.y;
+            transform.eulerAngles = Vector3.up * Mathf.SmoothDampAngle(transform.eulerAngles.y, targetRotation, ref turnSmoothVelocity, turnSmoothTime);
+        }
 
-        //eliminates y vector since camera is rotated to look down slightly
-        cameraForward.y = 0;
-        cameraRight.y = 0;
+        //determine if the user is holding download left shift to run
+        bool running = Input.GetKey(KeyCode.LeftShift);
+        float targetSpeed;
+        if (running)
+        {
+            targetSpeed = runSpeed * input.magnitude;
+        }
+        else
+        {
+            targetSpeed = walkSpeed * input.magnitude;
+        }
+        currentSpeed = Mathf.SmoothDamp(currentSpeed, targetSpeed, ref speedSmoothVelocity, speedSmoothTime);
 
-        //calculates the vector 3 for movement with respect to camera direction
-        //and vertical vector for gravity
-        Vector3 movement = (cameraForward * input.y + cameraRight * input.x + verticalVector);
-
-        //takes the movement vector we calculate and moves the player
-        //I multiply the value by a numeric value at the end to increase how fast the player is moving
-        player.Move(movement * Time.deltaTime * 5);
+        //creates a velocity vector which also corresponds with speed
+        Vector3 velocity = transform.forward * currentSpeed;
+        //adds the vertical component to the movement
+        Vector3 movement = verticalVector + velocity;
+        //moves players based on movement
+        player.Move(movement * Time.deltaTime);
     }
 }
