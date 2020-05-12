@@ -21,13 +21,26 @@ public class AdvancedPlayerCamera : MonoBehaviour
 
     public float cameraHeight = 1f;
 
+    public float zoomSpeed = 4f;
+    public float minZoom = 5f;
+    public float maxZoom = 15f;
+
+    private float currentZoom = 10f;
+
+    public float characterPitch = 2.0f;
+
 
     // Start is called before the first frame update
     void Start()
     {
         
     }
-
+    private void Update()
+    {
+        currentZoom -= Input.GetAxis("Mouse ScrollWheel") * zoomSpeed;
+        //clamps zoom so it has a min and max value
+        currentZoom = Mathf.Clamp(currentZoom, minZoom, maxZoom);
+    }
     // Calls this update after all other updates have been called
     void LateUpdate()
     {
@@ -43,6 +56,7 @@ public class AdvancedPlayerCamera : MonoBehaviour
 
         Vector3 height = new Vector3(0, cameraHeight, 0);
 
-        transform.position = height + target.position - transform.forward * distanceFromTarget;
+        transform.position = height + target.position - transform.forward * currentZoom;
+        transform.LookAt(target.position + Vector3.up * characterPitch);
     }
 }
