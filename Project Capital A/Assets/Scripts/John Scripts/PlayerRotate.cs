@@ -8,7 +8,7 @@ public class PlayerRotate : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-
+        
     }
 
     // Update is called once per frame
@@ -17,7 +17,7 @@ public class PlayerRotate : MonoBehaviour
         //rotates the player when left arrow key is clicked
         if (Input.GetKey(KeyCode.LeftArrow))
         {
-            player.transform.Rotate(new Vector3(0, -1, 0));
+            player.transform.Rotate(new Vector3(0,-1,0));
         }
         else if (Input.GetKey(KeyCode.RightArrow))
         {
