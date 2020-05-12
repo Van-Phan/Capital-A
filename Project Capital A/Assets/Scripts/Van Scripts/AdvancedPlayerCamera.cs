@@ -11,9 +11,9 @@ public class AdvancedPlayerCamera : MonoBehaviour
     //represents vertical rotation
     float yaw;
     //Vector2 used to represent the max vertical rotation
-    public Vector2 yawMinMax = new Vector2(-30, 50);
+    public Vector2 yawMinMax = new Vector2(-80, 5);
     public Transform target;
-    public float distanceFromTarget = 3;
+    public float distanceFromTarget = 2;
 
     public float rotationSmoothTime = .12f;
     Vector3 rotationSmoothVelocity;
@@ -22,10 +22,10 @@ public class AdvancedPlayerCamera : MonoBehaviour
     public float cameraHeight = 1f;
 
     public float zoomSpeed = 4f;
-    public float minZoom = 5f;
-    public float maxZoom = 15f;
+    public float minZoom = 3f;
+    public float maxZoom = 6f;
 
-    private float currentZoom = 10f;
+    private float currentZoom = 6f;
 
     public float characterPitch = 2.0f;
 
