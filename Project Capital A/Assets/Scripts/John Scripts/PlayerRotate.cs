@@ -15,9 +15,13 @@ public class PlayerRotate : MonoBehaviour
     void Update()
     {
         //rotates the player when left arrow key is clicked
-        if (Input.GetKeyDown(KeyCode.LeftArrow))
+        if (Input.GetKey(KeyCode.LeftArrow))
         {
-            player.transform.Rotate(new Vector3(30,0,0));
+            player.transform.Rotate(new Vector3(0,-1,0));
+        }
+        else if (Input.GetKey(KeyCode.RightArrow))
+        {
+            player.transform.Rotate(new Vector3(0, 1, 0));
         }
     }
 }
