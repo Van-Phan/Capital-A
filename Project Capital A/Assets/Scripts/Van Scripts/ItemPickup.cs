@@ -8,6 +8,7 @@ public class ItemPickup : Interactable
     public override void Interact()
     {
         base.Interact();
+
         PickUp();
     }
     // Start is called before the first frame update

@@ -246,7 +246,6 @@ GameObject:
   - component: {fileID: 678788645}
   - component: {fileID: 678788644}
   - component: {fileID: 678788650}
-  - component: {fileID: 678788648}
   - component: {fileID: 678788649}
   - component: {fileID: 678788651}
   m_Layer: 0
@@ -330,24 +329,6 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &678788648
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 678788643}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1bafc874385f993469fc93879b18e31d, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  camera: {fileID: 837133592}
-  player: {fileID: 678788650}
-  walkSpeed: 2
-  runSpeed: 6
-  speedSmoothTime: 0.1
-  turnSmoothTime: 0.2
 --- !u!114 &678788649
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -583,6 +564,7 @@ GameObject:
   - component: {fileID: 890575011}
   - component: {fileID: 890575010}
   - component: {fileID: 890575009}
+  - component: {fileID: 890575013}
   m_Layer: 0
   m_Name: Sword
   m_TagString: Untagged
@@ -656,12 +638,26 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 890575008}
   m_LocalRotation: {x: -0, y: -0.4047923, z: -0, w: 0.9144087}
-  m_LocalPosition: {x: 6.859375, y: -0.28, z: -5.28}
+  m_LocalPosition: {x: 6.859375, y: -0.32, z: -5.28}
   m_LocalScale: {x: 2.6153, y: 0.27066, z: 0.16786}
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 7
   m_LocalEulerAnglesHint: {x: 0, y: -47.756, z: 0}
+--- !u!114 &890575013
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 890575008}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 835eae83053b4b3489c112fe60f8e8b0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  radius: 3
+  interactionTransform: {fileID: 890575012}
 --- !u!1 &1457984826
 GameObject:
   m_ObjectHideFlags: 0
