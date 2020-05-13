@@ -8,14 +8,11 @@ public class EnemyMovement : MonoBehaviour
     public GameObject player;
     private float xVel;
     private float zVel;
-    public float turnSmoothTime;
-    private float turnSmoothVelocity;
     // Start is called before the first frame update
     void Start()
     {
         xVel = 0;
         zVel = 0;
-        turnSmoothTime = 0.2f;
     }
 
     // Update is called once per frame

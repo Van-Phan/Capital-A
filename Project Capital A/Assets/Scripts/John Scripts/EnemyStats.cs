@@ -2,9 +2,9 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PlayerStats : MonoBehaviour
+public class EnemyStats : MonoBehaviour
 {
-    private const float MAX_HEALTH = 10;
+    private const float MAX_HEALTH = 3;
     public float currHealth;
     public float attackStat;
     public float defenseStat;
@@ -20,19 +20,6 @@ public class PlayerStats : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
-    }
 
-    public void OnCollisionEnter(Collision collision)
-    {
-        if(collision.collider.tag == "Enemy")
-        {
-            currHealth--;
-        }
-
-        if(currHealth <= 0)
-        {
-            Destroy(this.gameObject);
-        }
     }
 }
