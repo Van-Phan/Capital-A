@@ -24,6 +24,14 @@ public class ItemPickup : Interactable
     // Update is called once per frame
     void Update()
     {
-
+        if (isFocus && !hasInteracted)
+        {
+            float distance = Vector3.Distance(player.position, interactionTransform.position);
+            if (distance <= radius)
+            {
+                Interact();
+                hasInteracted = true;
+            }
+        }
     }
 }

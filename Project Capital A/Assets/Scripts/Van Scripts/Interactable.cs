@@ -8,10 +8,10 @@ public class Interactable : MonoBehaviour
     public float radius = 3f;
     public Transform interactionTransform;
 
-    bool isFocus = false;
-    Transform player;
+    protected bool isFocus = false;
+    protected Transform player;
 
-    bool hasInteracted = false;
+    protected bool hasInteracted = false;
 
     public virtual void Interact()
     {
